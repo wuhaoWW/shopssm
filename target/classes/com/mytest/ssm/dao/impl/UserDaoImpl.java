@@ -32,7 +32,7 @@ public class UserDaoImpl extends BaseDaoImpl implements IUserDao {
 			Object[] params = new Object[]{
 					null,
 					user.getUsername(),
-					user.getPwd(),
+					user.getPassword(),
 					user.getEmail(),
 					user.getMobile(),
 			};

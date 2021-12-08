@@ -88,7 +88,7 @@ public class UserRegisterServlet extends HttpServlet{
 		String authcode = req.getParameter("authcode");
 		
 		user.setUsername(username);
-		user.setPwd(pwd);
+		user.setPassword(pwd);
 		user.setEmail(email);
 		user.setMobile(mobile);
 		

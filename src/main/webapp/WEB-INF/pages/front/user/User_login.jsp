@@ -24,7 +24,7 @@
 		<h2><a href="http://localhost:8082/xindou/default.htm">在线商城-产品论坛-免费购物-宏购网</a><img src="/shopssm/resource/frontImage/images/dot-postiont2.gif">用户登录</h2>
 	</div>
 	<!---position area end-->
-<form id="form1" name="form1" method="post" action="/shopssm/front/user/login.do">
+<form id="form1" name="form1" method="post" action="/shopssm/front/userlogin">
 <div id="bbs-list-nav">
 	<div id="bbs-title">
 		<h3>用户登录</h3>

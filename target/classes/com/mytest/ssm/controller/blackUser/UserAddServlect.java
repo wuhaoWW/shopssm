@@ -87,7 +87,7 @@ import com.mytest.ssm.service.impl.UserServiceImpl;
 			String email = req.getParameter("email");
 			
 			user.setUsername(username);
-			user.setPwd(pwd);
+			user.setPassword(pwd);
 			user.setEmail(email);
 			user.setMobile(mobile);
 			

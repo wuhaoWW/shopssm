@@ -1,9 +1,9 @@
 package com.mytest.ssm.utils.mapper;
 
-import com.mytest.ssm.entity.User;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mytest.ssm.entity.User;
 
 public class UserRowMapper implements RowMapper<User> {
 
@@ -13,7 +13,7 @@ public class UserRowMapper implements RowMapper<User> {
 		
 		user.setId(rs.getInt("U_ID"));
 		user.setUsername(rs.getString("U_USERNAME"));
-		user.setPwd(rs.getString("U_PWD"));
+		user.setPassword(rs.getString("U_PWD"));
 		user.setEmail(rs.getString("U_EMAIL"));
 		user.setMobile(rs.getString("U_MOBILE"));
 		

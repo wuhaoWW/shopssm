@@ -5,16 +5,22 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mytest.ssm.dao.impl.UserDaoImpl;
 import com.mytest.ssm.entity.PageData;
 import com.mytest.ssm.entity.User;
 import com.mytest.ssm.exception.EmailExistException;
 import com.mytest.ssm.exception.UsernameExistException;
+import com.mytest.ssm.mapper.UserMapper;
 import com.mytest.ssm.service.IUserService;
 import com.mytest.ssm.utils.mapper.UserRowMapper;
-
+@Service
 public class UserServiceImpl implements IUserService {
 	private UserDaoImpl userDao = new UserDaoImpl();
+	@Autowired
+	UserMapper userMapper;
 	/**
 	 * 注册用户！
 	 * @param user
@@ -50,7 +56,15 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean login(String param, String pwd) throws Exception {
         //根据用户名查询
-		User u = userDao.query(param, userDao.findByUsername); 
+//		User u = userDao.query(param, userDao.findByUsername); 
+		User user = new User();
+		user.setUsername(param);
+		user.setPassword(pwd);
+		
+		  List<User> userLogin = userMapper.userLogin(user);
+		  
+		  System.out.println(userLogin.toString());
+		User u=userLogin.get(0);
 			if(null==u){ 
 	        //根据邮箱查询 
 				u = userDao.query(param, userDao.findByEmail);
@@ -60,7 +74,7 @@ public class UserServiceImpl implements IUserService {
 					}
 			} 
 		
-		if(null!=u && u.getPwd().equals(pwd)){
+		if(null!=u ){
 			return true;
 		}else{ 
 			return false;

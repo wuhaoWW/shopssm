@@ -1,17 +1,18 @@
 package com.mytest.ssm.web.controller.user;
 
-import com.mytest.ssm.entity.User;
-import com.mytest.ssm.exception.EmailExistException;
-import com.mytest.ssm.exception.UsernameExistException;
-import com.mytest.ssm.service.impl.UserServiceImpl;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.mytest.ssm.entity.User;
+import com.mytest.ssm.exception.EmailExistException;
+import com.mytest.ssm.exception.UsernameExistException;
+import com.mytest.ssm.service.impl.UserServiceImpl;
 
 public class UserRegisterServlet extends HttpServlet{
 	UserServiceImpl userServiceImpl = new UserServiceImpl();
@@ -87,7 +88,7 @@ public class UserRegisterServlet extends HttpServlet{
 		String authcode = req.getParameter("authcode");
 		
 		user.setUsername(username);
-		user.setPwd(pwd);
+		user.setPassword(pwd);
 		user.setEmail(email);
 		user.setMobile(mobile);
 		
