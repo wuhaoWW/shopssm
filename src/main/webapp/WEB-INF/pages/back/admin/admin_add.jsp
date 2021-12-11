@@ -20,7 +20,7 @@
 		
 		<div id="content">
 			<form id="AdminAddform" name="AdminAddform"
-					 method="post" action="/shopssm/back/admin/add.do">
+					 method="post" action="/shopssm/back/admin/add.action">
 				<table align="center" id="add_table">
 					<caption id="cap">
 						管理员添加

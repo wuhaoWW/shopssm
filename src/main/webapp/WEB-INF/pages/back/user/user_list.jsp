@@ -57,7 +57,7 @@
 							<td>${user.mobile }</td>
 							<td>${user.email }</td>
 							<td>
-								<a class="like_btn" href="/shopssm/back/user/toEdit.do?userName=${user.username }">修改</a>
+								<a class="like_btn" href="/shopssm/back/user/toEdit.action?userName=${user.username }">修改</a>
 							</td>
 						</tr>
 			       </c:forEach>
@@ -71,8 +71,8 @@
 					<a href="#" class="like_btn" onclick="checkAll('id')">全选</a>
 					<a href="#" class="like_btn" onclick="cancelCheck('id')">取消选择</a>
 					<a href="#" class="like_btn" onclick="reverseCheck('id')">反选</a>
-					<a href="#" class="like_btn" onclick="deleteChecked('id','/shopssm/back/user/delete.do')">删除</a>
-					<a href="/shopssm/back/user/toAdd.do" class="like_btn">添加用户</a>
+					<a href="#" class="like_btn" onclick="deleteChecked('id','/shopssm/back/user/del.action')">删除</a>
+					<a href="/shopssm/back/user/toAdd.action" class="like_btn">添加用户</a>
 				</td>
 			</tr>
 					<tr class="page"> 
@@ -105,7 +105,7 @@
 		</table>
 		</div>
 		
-		<form id="SearchForm" method="post" action="/shopssm/back/user/list.do">
+		<form id="SearchForm" method="post" action="/shopssm/back/user/list.action">
 			<table id="search" align="center">
 				<tr>
 					<td>用户名称:</td>

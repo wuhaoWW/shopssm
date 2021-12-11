@@ -23,7 +23,7 @@
 		<div class="position"> 当前位置：品牌管理 >> 品牌添加 </div>
 		<div id="content">  
 			<form id="BrandAddform" enctype="multipart/form-data"
-			       name="BrandAddform" method="post" action="/shopssm/back/brand/brandAdd.do">
+			       name="BrandAddform" method="post" action="/shopssm/back/brandBrandAdd">
 				<table align="center" id="add_table">
 						<caption id="cap">品牌添加</caption>
 						<tbody>
@@ -65,7 +65,7 @@
 							<tr>
 								<td> 描述:</td>
 								<td>
-									<textarea  class="ckeditor" name="desc" 
+									<textarea  class="ckeditor" name="descs" 
 															cols="50" rows="10"></textarea>
 								</td>
 	

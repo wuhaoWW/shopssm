@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mytest.ssm.mapper.ProductMapper">
+ <resultMap type="com.mytest.ssm.entity.Product" id="BaseResultMap">
+
+		<id column="P_ID" property="id" />
+        <result column="P_NAME" property="name" />
+        <result column="P_NUMBER" property="number" />
+        <result column="P_MARKET_PRICE" property="marketPrice" />
+        <result column="P_DISCOUTED_PRICE" property="discountedPrice" />
+		<result column="P_ADD_DATE" property="addDate" />
+		<result column="P_DESC" property="descs" />
+		<result column="P_COLOR" property="color" />
+		<result column="P_REMARK" property="remark" />
+		<result column="P_MAINIMAGE" property="mainImage" />
+		<result column="P_RECOMMEND" property="recommend" />
+		<result column="P_PROMOTION" property="promotion" />
+		<result column="P_ATTENTION" property="attention" />
+		<result column="P_BUY_COUNT" property="buyCount" />
+		<result column="P_CLS" property="cls" />
+		<result column="P_BRAND_ID" property="brandId" />
+		<result column="P_CATEGORY_ID" property="categoryId" />
+	
+</resultMap>
+
+
+<select id="selectListByQuery" parameterType="java.lang.String" resultMap="BaseResultMap">
+SELECT
+	p.*
+FROM
+	t_product p
+LEFT JOIN t_brand b ON p.P_BRAND_ID = b.B_ID
+LEFT JOIN t_category c ON p.P_CATEGORY_ID = c.C_ID
+where 1=1 
+<if test="productName != null and productName !='' ">
+and  p.P_NAME = #{productName} 
+</if>
+<if test="brandName != null and brandName !='' ">
+and b.B_CNNAME =#{brandName}
+</if>
+<if test="categoryName != null and categoryName !='' ">
+and c.C_NAME =#{categoryName}
+</if>
+
+</select>
+   
+ 
+    
+</mapper>

@@ -55,7 +55,7 @@
 							<td>${category.cls }</td>
 							<td>
 								<a class="like_btn" target="_blank"
-											href="/shopssm/back/category/categoryToEdit.do?id=${category.id }">修改</a>
+											href="/shopssm/back/category/toEdit.action?id=${category.id }">修改</a>
 							</td>
 						</tr>
 			       </c:forEach>
@@ -69,9 +69,9 @@
 						<a href="javascript:void(0)" class="like_btn" onclick="cancelCheck('id')">取消选择</a>
 						<a href="javascript:void(0)" class="like_btn" onclick="reverseCheck('id')"> 反选</a>
 						<a href="javascript:void(0)" class="like_btn" 
-										onclick="deleteChecked('id','/shopssm/back/category/delete.do')">删除</a>
+										onclick="deleteChecked('id','/shopssm/back/category/del.action')">删除</a>
 						<a class="like_btn" target="_blank"
-										href="/shopssm/back/category/categoryToAdd.do" >添加分类</a>
+										href="/shopssm/back/category/toAdd.action" >添加分类</a>
 				</td>
 				</tr>
 					<tr class="page"> 
@@ -105,7 +105,7 @@
 		</table>
 		</div>
 		
-		<form id="SearchForm" method="post" action="/shopssm/back/category/categoryList.do" >
+		<form id="SearchForm" method="post" action="/shopssm/back/category/list.action" >
 			<table id="search" align="center">
 				<tr>
 					<td>分类名称:</td>

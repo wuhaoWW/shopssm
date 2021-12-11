@@ -45,7 +45,7 @@
 		</div>
 		  
 		<div id="content">
-			<form  method="post"  enctype="multipart/form-data"  action="/shopssm/back/product/edit.do">
+			<form  method="post"  enctype="multipart/form-data"  action="/shopssm/back/product/edit.action">
 				<table align="center" id="add_table">
 					<input type="hidden" name="id" value="${product.id }"/>
 					<caption id="cap"> 产品修改</caption>
@@ -187,11 +187,11 @@
 			  							<tr>
 			  							   <td width="15%">产品副图片:</td>
 			  							    <td>
-			  								   <input flag="${pi.index }" onchange="javascript:showOtherPhotos(this);" name="otherImages${pi.index }" type="file" >
-												<a id="aTag${pi.index }" target="_blank" href="${pageContext.request.contextPath}${pi.url}">
-														<img id="imgTag${pi.index }" height="50px" src="${pageContext.request.contextPath}${pi.url}"/>
+			  								   <input flag="${pi.indexs }" onchange="javascript:showOtherPhotos(this);" name="otherImages${pi.indexs }" type="file" >
+												<a id="aTag${pi.indexs }" target="_blank" href="${pageContext.request.contextPath}${pi.url}">
+														<img id="imgTag${pi.indexs }" height="50px" src="${pageContext.request.contextPath}${pi.url}"/>
 												</a>
-												<input name="unChangedOtherImages${pi.index}" type="hidden" value="${pi.url}">
+												<input name="unChangedOtherImages${pi.indexs}" type="hidden" value="${pi.url}">
 											</td>
 										</tr>
 					 		    </c:forEach>
@@ -213,7 +213,7 @@
 					<tr>
 						<td>商品介绍:</td> 
 						<td> 
-							<textarea class="ckeditor" name = "desc">${product.desc}</textarea>
+							<textarea class="ckeditor" name = "desc">${product.descs}</textarea>
 						</td>
 					</tr> 
 					
@@ -236,12 +236,12 @@
 				<c:forEach items = "${requestScope.categoryList}" var = "c">
                		 <div>
                		       第一级分类：${c.name }  
-      		       		   <c:forEach items = "${c.childs}" var = "c2">
+      		       		   <c:forEach items = "${c.childsSet}" var = "c2">
 			               		 <div>
 			               		       ---第2级分类：${c2.name }   
 			               		       <div>
 			               		          ---------第3级分类：
-				               		      <c:forEach items="${c2.childs}" var="c3">
+				               		      <c:forEach items="${c2.childsSet}" var="c3">
 				               		      		    <a href="javascript:void(0)" class="category" a_categoryId="${c3.id }" >${c3.name }</a> 
 	           		       				   </c:forEach> 
            		       				   </div>

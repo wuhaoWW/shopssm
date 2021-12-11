@@ -20,7 +20,7 @@
 		<div class="position"> 当前位置：品牌管理 >>品牌修改 </div>
 		<div id="content"> 
 		<form  method="post" enctype="multipart/form-data"
-						action="/shopssm/back/brand/brandEdit.do">
+						action="/shopssm/back/brandEdit.action">
 		<table align="center" id="add_table" >
 			<tbody>
 				<input type="hidden" name="id" value="${brand.id }"/>
@@ -87,7 +87,7 @@
 						<tr>
 							<td width="15%"> 描述:</td>
 							<td>
-								<textarea class="ckeditor" name="desc" cols="50" rows="10">${brand.desc }</textarea>
+								<textarea class="ckeditor" name="descs" cols="50" rows="10">${brand.descs }</textarea>
 							</td>
 
 						</tr>

@@ -28,7 +28,7 @@
 			</div>
 			<!---position area end-->
 			<!---reg area start--->
-			<form id="register_form" name="form"  method="post" action="/shopssm/front/user/register.do">
+			<form id="register_form" name="form"  method="post" action="/shopssm/front/user/register.action">
 				<!-- onsubmit="return checkForm()" -->
 				<div id="bbs-list-nav">
 					<div id="bbs-title">

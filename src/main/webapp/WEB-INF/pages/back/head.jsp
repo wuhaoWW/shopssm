@@ -20,8 +20,8 @@
 				 
 			<div id = "head-nav">
 				${sessionScope.loginName}您好，欢迎使用后台管理系统！！
-				<a target="main" href = "${pageContext.request.contextPath}/back/admin/toPwdChange.do?adminName=${sessionScope.loginName}">[修改密码]</a>
-				<a target="_parent" href="${pageContext.request.contextPath}/back/admin/logOut.do">[退出登录]</a> 
+				<a target="main" href = "${pageContext.request.contextPath}/back/admin/toPwdChange.action?adminName=${sessionScope.loginName}">[修改密码]</a>
+				<a target="_parent" href="${pageContext.request.contextPath}/back/admin/loginOut.action">[退出登录]</a> 
 			</div> 
 		</div>    
 	</body>	 

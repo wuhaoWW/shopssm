@@ -19,7 +19,7 @@
 		
 		<div id="content">
 			<form id="BrandAddform" name="BrandAddform" method="post" 
-						action="/shopssm/back/category/categoryAdd.do">
+						action="/shopssm/back/category/add.action">
 				<table align="center" id="add_table">
 					<caption id="cap"> 
 						分类添加

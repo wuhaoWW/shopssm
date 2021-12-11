@@ -2,8 +2,11 @@ package com.mytest.ssm.service.impl;
 
 import java.io.File;
 
+import org.springframework.stereotype.Service;
+
 import com.mytest.ssm.service.IBaseService;
 
+@Service
 public class BaseServiceImpl implements IBaseService {
 
 	@Override

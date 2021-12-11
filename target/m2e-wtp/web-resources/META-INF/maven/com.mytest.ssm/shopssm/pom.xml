@@ -33,8 +33,9 @@
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus</artifactId>
-      <version>2.3</version>
+      <version>3.1.1</version>
     </dependency>
+       
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -90,19 +91,15 @@
             <version>1.8.0</version>
         </dependency>
 
-        <!-- MyBatis相关包 -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <!-- MySQL相关包 -->
+      
         <!-- c3p0连接池 -->
+	<!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
 <dependency>
-	<groupId>c3p0</groupId>
-	<artifactId>c3p0</artifactId>
-	<version>0.9.1.2</version><!-- 版本根据自己需求设定 -->
+    <groupId>com.mchange</groupId>
+    <artifactId>c3p0</artifactId>
+    <version>0.9.5.2</version>
 </dependency>
+
         
        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 <dependency>
@@ -138,12 +135,7 @@
             <version>1.0.20</version>
         </dependency>
 
-        <!-- Spring集成MyBatis -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+        
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

@@ -19,7 +19,7 @@
 		
 		<div class="position"> 当前位置：管理员管理 >> 管理员修改 </div>
 		<div id="content"> 
-		<form  method="post" action="/shopssm/back/admin/edit.do">
+		<form  method="post" action="/shopssm/back/admin/edit.action">
 		<table align="center" id="add_table" >
 			<tbody>
 				<input type="hidden" name="adminId" value="${admin.id }"/>
@@ -60,7 +60,7 @@
 						<tr>
 							<td align="left"> 描述:</td>
 							<td>
-								<textarea class="ckeditor" name="desc" cols="50" rows="10">${admin.desc }</textarea>
+								<textarea class="ckeditor" name="descs" cols="50" rows="10">${admin.descs }</textarea>
 							</td>
 
 						</tr>

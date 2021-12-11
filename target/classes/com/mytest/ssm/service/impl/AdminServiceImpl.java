@@ -1,19 +1,26 @@
 package com.mytest.ssm.service.impl;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mytest.ssm.dao.impl.AdminDaoImpl;
-import com.mytest.ssm.dao.impl.AdminDaoImpl.Admin_Sql;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mytest.ssm.entity.Admin;
 import com.mytest.ssm.entity.PageData;
+import com.mytest.ssm.mapper.AdminMapper;
 import com.mytest.ssm.service.IAdminService;
-import com.mytest.ssm.utils.mapper.AdminRowMapper;
+import com.mytest.ssm.utils.PageModel;
 
+@Service
 public class AdminServiceImpl implements IAdminService {
-	private AdminDaoImpl adminDao = new AdminDaoImpl();
+	
+	@Autowired
+	private AdminMapper adminMapper;
 	/**
 	 * 注册用户！
 	 */
@@ -26,7 +33,7 @@ public class AdminServiceImpl implements IAdminService {
 			return "AdminAlreadyExist"; 
 		}else{
 			//管理员不存在 
-			adminDao.save(admin); 
+			adminMapper.insert(admin);
 			return "success"; 
 		}
 	}   
@@ -34,8 +41,12 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public boolean login(String adminName, String password) throws Exception {
         //根据adminName查询 
-		Admin adm = findByName(adminName);
-		if(null!=adm && adm.getPassword().equals(password)){
+		Admin admin = new Admin();
+		admin.setAdminName(adminName);
+		admin.setPassword(password);
+		List<Admin> selectUserInfoByNameAndPass = adminMapper.selectUserInfoByNameAndPass(admin);
+	
+		if(!selectUserInfoByNameAndPass.isEmpty()){
 			return true;
 		}else{ 
 			return false; 
@@ -47,28 +58,27 @@ public class AdminServiceImpl implements IAdminService {
 	public PageData listPage(Map<String, Object> conditions, int page, int rows,
 			LinkedHashMap<String, String> orderBy) {
 		
-		StringBuffer whereSql = new StringBuffer();
-		List<String> paramsList = new ArrayList<String>();
+		QueryWrapper<Admin> queryWrapper = new QueryWrapper<Admin>();
 		  
 		if(null!=conditions && conditions.size()>0){
 			Object adminName = conditions.get("adminName");
 			//判断adminName是否为空 ,不为空才添加到whereSql
 			if(null!=adminName && !"".equals(adminName)){
-				whereSql.append(" and A_ADMINNAME like ?");
-				paramsList.add("%"+adminName+"%"); //添加enName到paramsList
+				queryWrapper.like("A_ADMINNAME", adminName);
 			}
 			
 		}     
 		try { 
-			//查出dataList  
-			List<Admin> dataList = adminDao.queryList(whereSql,paramsList.toArray(),
-						page,rows,orderBy,Admin_Sql.AdminQueryList, new AdminRowMapper());
 			
-			//查出totalRecordes总记录数
-			int totalRecordes = adminDao.getTotalRecords(whereSql,paramsList,Admin_Sql.queryCount);
+				
+			//查出dataList  
+			List<Admin> selectList = adminMapper.selectList(queryWrapper);
+			
+			PageModel pageModel = new PageModel(selectList, rows);
+			List objects = pageModel.getObjects(page);
 			
 			//创建pageData对象(totalRecordes,1,10,dataList)
-			PageData pageData = new PageData(totalRecordes, page, rows, dataList);
+			PageData pageData = new PageData(selectList.size(), page, rows, objects);
 			  
 			return pageData; 
 			
@@ -80,18 +90,17 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public void delete(Integer[] id) {
-		adminDao.delete(id);
+		ArrayList<Integer> list = new ArrayList<>(Arrays.asList(id));
+		adminMapper.deleteBatchIds(list);
 	}
 
 	@Override
 	public Admin findByName(String adminName) {
+		QueryWrapper<Admin> queryWrapper = new QueryWrapper<Admin>();
 		
 		try {
-			StringBuffer whereSql = new StringBuffer(" and A_ADMINNAME=? ");
-			List<String> paramsList = new ArrayList<String>(); 
-			paramsList.add(adminName);
-			List<Admin> adminList = adminDao.queryList(whereSql, paramsList.toArray(),
-					-1, -1, null, Admin_Sql.AdminQueryList, new AdminRowMapper());
+			queryWrapper.eq("A_ADMINNAME", adminName);
+			List<Admin> adminList = adminMapper.selectList(queryWrapper);
 			if(null!=adminList && adminList.size()>0){
 				return adminList.get(0);
 			}
@@ -104,7 +113,12 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public boolean edit(Admin admin) {
 		try {
-			 return adminDao.update(admin);
+			int updateById = adminMapper.updateById(admin);
+			if (updateById !=0) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -114,7 +128,15 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public boolean editPwd(Integer id,String newPwd) {
 		try {
-			return adminDao.updatePwd(id,newPwd);
+			Admin admin = new Admin();
+			admin.setId(id);
+			admin.setPassword(newPwd);
+			int updateUserPWDById = adminMapper.updateUserPWDById(admin);
+			if (updateUserPWDById !=0) {
+				return true;
+			}else {
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

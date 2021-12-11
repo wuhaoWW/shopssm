@@ -32,7 +32,7 @@
 			<!--中左-->
 			<div  id="center_right">
 				<!-- form-->
-				<form action="/shopssm/back/admin/login.do" method="post">
+				<form action="/shopssm/back/admin/login" method="post">
 					<table id = "table">
 						<caption> 登陆宏购网后台</caption>
 						<tr>

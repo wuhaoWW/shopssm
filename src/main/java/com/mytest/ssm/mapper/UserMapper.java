@@ -1,10 +1,14 @@
 package com.mytest.ssm.mapper;
 import java.util.List;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.mytest.ssm.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface UserMapper  extends BaseMapper<User> {
-	
-	public List<User> userLogin(User user);
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mytest.ssm.entity.User;
+@Mapper
+public interface UserMapper  extends BaseMapper<User>  {
+	//用户登录
+	 List<User> userLogin(User user);
+	//用户注册
+	 int userReginst(User user);
 }

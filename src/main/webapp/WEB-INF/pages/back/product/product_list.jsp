@@ -101,7 +101,7 @@
 									<td>${product.color}</td>
 									
 									<td>
-										<a class="like_btn" href="/shopssm/back/product/toEdit.do?id=${product.id }">修改</a>
+										<a class="like_btn" href="/shopssm/back/product/toEdit.action?id=${product.id }">修改</a>
 									</td>
 							    </tr>
 					    </c:forEach>
@@ -114,8 +114,8 @@
 					<a href="javascript:void(0)" class="like_btn" onclick="checkAll('id')">全选</a>
 					<a href="javascript:void(0)" class="like_btn" onclick="cancelCheck('id')">取消选择</a>
 					<a href="javascript:void(0)" class="like_btn" onclick="reverseCheck('id')">反选</a>
-					<a href="javascript:void(0)" class="like_btn" onclick="deleteChecked('id','/shopssm/back/product/delete.do')">删除</a>
-					<a target="_blank" class="like_btn" href="/shopssm/back/product/productToAdd.do">添加产品</a>
+					<a href="javascript:void(0)" class="like_btn" onclick="deleteChecked('id','/shopssm/back/product/del.action')">删除</a>
+					<a target="_blank" class="like_btn" href="/shopssm/back/product/toAdd.action">添加产品</a>
 				</td>
 			</tr>
   
@@ -150,7 +150,7 @@
 			</table>
 		</div>
  
-		<form id="SearchForm" method="post" action="/shopssm/back/product/productList.do" >
+		<form id="SearchForm" method="post" action="/shopssm/back/product/list.action" >
 			<table id="search" align="center" > 
 				<tr>
 					<td>产品名称：</td>

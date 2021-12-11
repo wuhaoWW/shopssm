@@ -30,12 +30,12 @@
 
 		<c:choose>
 				<c:when test="${null==sessionScope.login_user}">	
-						<li><a href="/shopssm/front/user/toRegister.do">注册</a></li>
-						<li><a href="/shopssm/front/user/toLogin.do">登录</a></li>
+						<li><a href="/shopssm/front/user/toRegister.action">注册</a></li>
+						<li><a href="/shopssm/front/user/toLogin.action">登录</a></li>
 				</c:when>	
 				
 				<c:otherwise>
-					<li><a href="/shopssm/front/user/logOut.do">[退出]&nbsp;</a></li>
+					<li><a href="/shopssm/front/user/loginOut.action">[退出]&nbsp;</a></li>
 						<li class="message"><img src="/shopssm/resource/frontImage/images/mymessage.gif"><a href="http://localhost:8082/xindou/user/usercpinbox.htm">消息</a></li>
 						<li class="more"><img src="/shopssm/resource/frontImage/images/myxindou.gif"><a href="http://localhost:8082/xindou/user/usercp.htm">控制面板</a></li>
 						<li id="my" class="more2" onmouseover="showMenu(this.id);" onmouseout="showMenu(this.id);"><a href="###">我的&nbsp;&nbsp;&nbsp;</a></li>

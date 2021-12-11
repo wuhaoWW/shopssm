@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mytest.ssm.mapper.BrandMapper">
+	
+    
+ <!-- 自定义高级映射 -->
+    <resultMap id="BaseResultMap" type="com.mytest.ssm.entity.Brand">
+        <id column="B_ID" property="id" />
+        <result column="B_CNNAME" property="cnName" />
+        <result column="B_ENNAME" property="enName" />
+        <result column="B_BIGPHOTO" property="bigPhoto" />
+        <result column="B_SMALLPHOTO" property="smallPhoto" />
+         <result column="B_DESC" property="desc" />
+    </resultMap>
+    
+</mapper>

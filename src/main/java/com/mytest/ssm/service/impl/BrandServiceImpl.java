@@ -1,24 +1,31 @@
 package com.mytest.ssm.service.impl;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mytest.ssm.dao.impl.BrandDaoImpl;
-import com.mytest.ssm.dao.impl.BrandDaoImpl.Brand_Sql;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mytest.ssm.entity.Brand;
 import com.mytest.ssm.entity.PageData;
+import com.mytest.ssm.mapper.BrandMapper;
 import com.mytest.ssm.service.IBrandService;
-import com.mytest.ssm.utils.mapper.BrandRowMapper;
+import com.mytest.ssm.utils.PageModel;
 
+
+@Service
 public class BrandServiceImpl extends BaseServiceImpl implements IBrandService {
-	private BrandDaoImpl brandDao = new BrandDaoImpl();
+	
+	@Autowired
+	private BrandMapper brandMapper;
 	
 	@Override
 	public void add(Brand brand) throws Exception {
 		try{
-				brandDao.save(brand);
+			System.out.println(brand.toString());
+			brandMapper.insert(brand);
 		}catch(Exception e){
 				e.printStackTrace();  
 		}
@@ -27,15 +34,10 @@ public class BrandServiceImpl extends BaseServiceImpl implements IBrandService {
 	@Override
 	public void delete(Integer[] ids) throws Exception {
 		try {
-//			for (int i = 0; i < ids.length; i++) {
-//				Brand brand = findById(ids[i]);
-//				//先删除图片！
-//				deletePhoto(brand.getSmallPhoto());
-//				deletePhoto(brand.getBigPhoto());
-//			}
-//			
-			//再删除数据库信息！
-			brandDao.delete(ids);
+			for (int i = 0; i < ids.length; i++) {
+				brandMapper.deleteById(ids[i]);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,7 +60,7 @@ public class BrandServiceImpl extends BaseServiceImpl implements IBrandService {
 			}
 			
 			//再修改数据库信息！
-			brandDao.update(newBrand);
+			brandMapper.updateById(newBrand);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -66,15 +68,10 @@ public class BrandServiceImpl extends BaseServiceImpl implements IBrandService {
 	 
 	@Override
 	public Brand findById(Integer id) throws Exception{
+		
 		try {
-			StringBuffer whereSql = new StringBuffer(" and B_ID=?");
-			List<Integer> paramsList = new ArrayList<Integer>(); 
-			paramsList.add(id);
-			List<Brand> brandList = brandDao.queryList(whereSql, paramsList.toArray(), 
-						-1, -1, null, Brand_Sql.brandQueryList, new BrandRowMapper());
-			if(null!=brandList && brandList.size()>0){
-				return brandList.get(0);
-			}
+			return brandMapper.selectById(id);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,35 +83,32 @@ public class BrandServiceImpl extends BaseServiceImpl implements IBrandService {
 	@Override
 	public PageData listPage(Map<String, Object> conditions, int page, int rows,
 			LinkedHashMap<String, String> orderBy) throws Exception {
+		QueryWrapper<Brand> queryWrapper = new QueryWrapper<Brand>();
 		
-		StringBuffer whereSql = new StringBuffer();
-		List<Object> paramsList = new ArrayList<Object>();
 		  
 		if(null!=conditions && conditions.size()>0){
 			Object enName = conditions.get("B_ENNAME");
 			//判断enName是否为空 ,不为空才添加到whereSql
 			if(null!=enName && !"".equals(enName)){
-				whereSql.append(" and B_ENNAME like ?");
-				paramsList.add("%"+enName+"%"); //添加enName到paramsList
+				queryWrapper.like("B_ENNAME", enName);
+			
 			}
 			
 			Object cnName = conditions.get("B_CNNAME"); 
 			//判断cnName是否为空,不为空才添加到whereSql
 			if(null!=cnName && !"".equals(cnName)){  
-				whereSql.append(" and B_CNNAME like ?");
-				paramsList.add("%"+cnName+"%"); //添加cnName到paramsList
-			} 
+				queryWrapper.like("B_CNNAME", cnName);
+			}else {
+				queryWrapper.like("B_CNNAME", "");
+			}
 		}
 		try { 
-			//查出dataList
-			List<Brand> dataList = brandDao.queryList(whereSql,paramsList.toArray(),
-							page,rows,orderBy,Brand_Sql.brandQueryList, new BrandRowMapper());
-			
-			//查出totalRecordes总记录数
-			int totalRecordes = brandDao.getTotalRecords(whereSql,paramsList,Brand_Sql.queryCount);
-			
+			List<Brand> dataList = brandMapper.selectList(queryWrapper);
+			 
+			PageModel pageModel = new PageModel(dataList, rows);
+			List objects = pageModel.getObjects(page);
 			//创建pageData对象(totalRecordes,1,10,dataList)
-			PageData pageData = new PageData(totalRecordes, page, rows, dataList);
+			PageData pageData = new PageData(dataList.size(), page, rows, objects);
 			  
 			return pageData;
 			
@@ -127,11 +121,7 @@ public class BrandServiceImpl extends BaseServiceImpl implements IBrandService {
 	@Override
 	public List<Brand> listAllBrand() throws Exception {
 		try {
-			List<Brand> brandlist = brandDao.queryList(null, null, -1, -1,
-							null, Brand_Sql.brandQueryList, new BrandRowMapper());
-			if(null!=brandlist && brandlist.size()>0){
-				return brandlist;
-			}
+			return brandMapper.selectList(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

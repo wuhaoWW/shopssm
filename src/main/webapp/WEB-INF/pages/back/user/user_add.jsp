@@ -20,7 +20,7 @@
 		
 		<div id="content">
 			<form id="UserAddform" name="UserAddform"
-					 method="post" action="/shopssm/back/user/add.do">
+					 method="post" action="/shopssm/back/user/add.action">
 				<table align="center" id="add_table">
 					<caption id="cap">
 						用户添加

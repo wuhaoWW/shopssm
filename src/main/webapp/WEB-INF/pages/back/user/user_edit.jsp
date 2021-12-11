@@ -19,7 +19,7 @@
 		
 		<div class="position"> 当前位置：用户管理 >> 用户修改 </div>
 		<div id="content"> 
-		<form  method="post" action="/shopssm/back/user/edit.do">
+		<form  method="post" action="/shopssm/back/user/edit.action">
 		<table align="center" id="add_table" >
 			<tbody>
 				<input type="hidden" name="userId" value="${user.id }"/>

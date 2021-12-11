@@ -21,8 +21,8 @@
 			</li> 
 			<ul class="sub_menu"> 
 				<!-- target="main" 表示在“name=main”页面显示-->
-				<li><a href="/shopssm/back/brand/brandToAdd.do" target="main">  品牌添加</a></li>
-				<li><a href="/shopssm/back/brand/brandList.do" target="main">  品牌列表</a></li>
+				<li><a href="/shopssm/back/brandToAdd.action" target="main">  品牌添加</a></li>
+				<li><a href="/shopssm/back/brandList.action" target="main">  品牌列表</a></li>
 			</ul>
 		</ul> 
 		
@@ -32,8 +32,8 @@
 			</li> 
 			<ul class="sub_menu"> 
 				<!-- target="main" 表示在“name=main”页面显示-->
-				<li><a href="/shopssm/back/category/categoryToAdd.do" target="main">  分类添加</a></li>
-				<li><a href="/shopssm/back/category/categoryList.do" target="main">  分类列表</a></li>
+				<li><a href="/shopssm/back/category/toAdd.action" target="main">  分类添加</a></li>
+				<li><a href="/shopssm/back/category/list.action" target="main">  分类列表</a></li>
 			</ul>
 		</ul> 
 		
@@ -43,8 +43,8 @@
 			</li> 
 			<ul class="sub_menu"> 
 				<!-- target="main" 表示在“name=main”页面显示-->
-				<li><a href="/shopssm/back/product/productToAdd.do" target="main">  产品添加</a></li>
-				<li><a href="/shopssm/back/product/productList.do" target="main">  产品列表</a></li>
+				<li><a href="/shopssm/back/product/toAdd.action" target="main">  产品添加</a></li>
+				<li><a href="/shopssm/back/product/list.action" target="main">  产品列表</a></li>
 			</ul>
 		</ul> 
 		
@@ -66,8 +66,8 @@
 				<h2 class = "sup_menu"> 用户管理 </h2> 
 			</li>
 			<ul class="sub_menu">
-				<li> <a href="/shopssm/back/user/toAdd.do" target="main"> 用户添加</a></li>
-				<li><a href="/shopssm/back/user/list.do" target="main">  用户列表</a></li>
+				<li> <a href="/shopssm/back/user/toAdd.action" target="main"> 用户添加</a></li>
+				<li><a href="/shopssm/back/user/list.action" target="main">  用户列表</a></li>
 			</ul>
 		</ul>
  
@@ -76,8 +76,8 @@
 				<h2 class = "sup_menu"> 管理员管理 </h2>  
 			</li>
 			<ul class="sub_menu">
-				<li> <a href="/shopssm/back/admin/toAdd.do" target="main"> 管理员添加</a></li>
-				<li><a href="/shopssm/back/admin/list.do" target="main">  管理员列表</a></li>
+				<li> <a href="/shopssm/back/admin/toAdd.action" target="main"> 管理员添加</a></li>
+				<li><a href="/shopssm/back/admin/list.action" target="main">  管理员列表</a></li>
 			</ul>
 		</ul>
 	</body>

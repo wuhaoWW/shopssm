@@ -8,19 +8,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mytest.ssm.dao.impl.UserDaoImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mytest.ssm.entity.PageData;
 import com.mytest.ssm.entity.User;
 import com.mytest.ssm.exception.EmailExistException;
 import com.mytest.ssm.exception.UsernameExistException;
 import com.mytest.ssm.mapper.UserMapper;
 import com.mytest.ssm.service.IUserService;
-import com.mytest.ssm.utils.mapper.UserRowMapper;
+import com.mytest.ssm.utils.PageModel;
+
 @Service
 public class UserServiceImpl implements IUserService {
-	private UserDaoImpl userDao = new UserDaoImpl();
 	@Autowired
-	UserMapper userMapper;
+	private UserMapper userMapper;
 	/**
 	 * 注册用户！
 	 * @param user
@@ -29,28 +29,35 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String register(User user) throws UsernameExistException,EmailExistException,Exception{
 		//用户
-		User u = userDao.query(user.getUsername(),userDao.findByUsername);
+		QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+		queryWrapper.eq("U_USERNAME", user.getUsername());
+		User u = userMapper.selectOne(queryWrapper);
 		if(null!=u){
 			//用户已经存在
 			return "UsernameAlreadyExist";
 		}  
-		
+		QueryWrapper<User> queryWrapper1 = new QueryWrapper<User>();
+		queryWrapper1.eq("U_EMAIL", user.getEmail());
+		User u1 = userMapper.selectOne(queryWrapper1);
 		//邮箱
-		u = userDao.query(user.getEmail(),userDao.findByEmail);
-		if(null!=u){   
+		
+		if(null!=u1){   
 			//邮箱已经存在 
 			return "EmailAlreadyExist";  
 		}
 		
 		//手机
-		u = userDao.query(user.getMobile(), userDao.findByMobile);
-		if(null!=u){
+		QueryWrapper<User> queryWrapper2 = new QueryWrapper<User>();
+		queryWrapper2.eq("U_MOBILE", user.getMobile());
+		User u2 = userMapper.selectOne(queryWrapper2);
+		if(null!=u2){
 			return "MobileAlreadyExist";
 		}
 		
 		//最后保存
-			userDao.save(user); 
-			return "success";
+		int userReginst = userMapper.userReginst(user);
+	
+		return "success";
 	}
 	
 	@Override
@@ -62,17 +69,26 @@ public class UserServiceImpl implements IUserService {
 		user.setPassword(pwd);
 		
 		  List<User> userLogin = userMapper.userLogin(user);
-		  
-		  System.out.println(userLogin.toString());
-		User u=userLogin.get(0);
+		  User u=null;
+		  try {
+			   u=userLogin.get(0);
+		} catch (Exception e) {
+			// TODO: handle exception
 			if(null==u){ 
-	        //根据邮箱查询 
-				u = userDao.query(param, userDao.findByEmail);
-					if(null==u){
-						 //根据手机查询
-						u = userDao.query(param, userDao.findByMobile);
-					}
-			} 
+		        //根据邮箱查询 
+					QueryWrapper<User> queryWrapper1 = new QueryWrapper<User>();
+					queryWrapper1.eq("U_EMAIL", param);
+					 u = userMapper.selectOne(queryWrapper1);
+						if(null==u){
+							 //根据手机查询
+							QueryWrapper<User> queryWrapper2 = new QueryWrapper<User>();
+							queryWrapper2.eq("U_MOBILE", param);
+							u = userMapper.selectOne(queryWrapper2);
+						}
+				} 
+		}
+		 
+			
 		
 		if(null!=u ){
 			return true;
@@ -92,28 +108,26 @@ public class UserServiceImpl implements IUserService {
 	public PageData listPage(Map<String, Object> conditions, int page, int rows,
 			LinkedHashMap<String, String> orderBy) {
 		// TODO Auto-generated method stub
-		StringBuffer whereSql = new StringBuffer();
-		List<String> paramsList = new ArrayList<String>();
+		QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+		
+	
 		  
 		if(null!=conditions && conditions.size()>0){
 			Object userName = conditions.get("userName");
 			//判断userName是否为空 ,不为空才添加到whereSql
 			if(null!=userName && !"".equals(userName)){
-				whereSql.append(" and U_USERNAME like ?");
-				paramsList.add("%"+userName+"%"); //添加enName到paramsList
+				queryWrapper.like("U_USERNAME", userName);
 			}
 			
 		}     
 		try { 
 			//查出dataList  
-			List<User> dataList = userDao.queryList(whereSql,paramsList.toArray(),
-						page,rows,orderBy,userDao.UserQueryList, new UserRowMapper());
-			
-			//查出totalRecordes总记录数
-			int totalRecordes = userDao.getTotalRecords(whereSql,paramsList,userDao.queryCount);
+			List<User> selectList = userMapper.selectList(queryWrapper);
+			PageModel pageModel = new PageModel(selectList, rows);
+			List objects = pageModel.getObjects(page);
 			
 			//创建pageData对象(totalRecordes,1,10,dataList)
-			PageData pageData = new PageData(totalRecordes, page, rows, dataList);
+			PageData pageData = new PageData(selectList.size(), page, rows, objects);
 			  
 			return pageData; 
 			
@@ -126,19 +140,20 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void delete(Integer[] array) {
 		// TODO Auto-generated method stub
-		userDao.delete(array);
+		ArrayList<Integer> arrayList = new ArrayList<Integer>();
+		for (int i = 0; i < array.length; i++) {
+			arrayList.add(array[i]);
+		}
+		userMapper.deleteBatchIds(arrayList);
 	}
 
 	@Override
 	public User findByName(String userName) {
 		// TODO Auto-generated method stub
-
+		QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
 		try {
-			StringBuffer whereSql = new StringBuffer(" and U_USERNAME=? ");
-			List<String> paramsList = new ArrayList<String>(); 
-			paramsList.add(userName);
-			List<User> userList = userDao.queryList(whereSql, paramsList.toArray(),
-					-1, -1, null, userDao.UserQueryList, new UserRowMapper());
+			queryWrapper.eq("U_USERNAME", userName);
+			List<User> userList = userMapper.selectList(queryWrapper);
 			if(null!=userList && userList.size()>0){
 				return userList.get(0);
 			}
@@ -152,7 +167,12 @@ public class UserServiceImpl implements IUserService {
 	public boolean edit(User admin) {
 		// TODO Auto-generated method stub
 		try {
-			 return userDao.update(admin);
+			int updateById = userMapper.updateById(admin);
+			if (updateById != 0) {
+				return true;
+			}else {
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

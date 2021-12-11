@@ -4,11 +4,7 @@
     	<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
    		 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<!--
-	作者：offline
-	时间：2015-12-29 
-	描述：产品添加页面  
--->
+
 <html> 
 	<head> 
 		<meta charset="utf-8">
@@ -45,7 +41,7 @@
 		</div>
 		  
 		<div id="content">  
-			<form  method="post"  enctype="multipart/form-data"  action="/shopssm/back/product/productAdd.do">
+			<form  method="post"  enctype="multipart/form-data"  action="/shopssm/back/product/add.action">
 				<table align="center" id="add_table">
 					<caption id="cap"> 产品添加</caption>
 					<tr>
@@ -186,17 +182,17 @@
 				<c:forEach items = "${requestScope.categoryList}" var = "c">
                		 <div>
                		       第一级分类：${c.name }  
-      		       		   <c:forEach items = "${c.childs}" var = "c2">
+      		       		   <c:forEach items = "${c.childsSet}" var = "c2">
 			               		 <div>
-			               		       ---第2级分类：${c2.name }   
+			               		       ---第2级分类：${c2.name }
 			               		       <div>
 			               		          ---------第3级分类：
-				               		      <c:forEach items="${c2.childs}" var="c3">
-				               		      		    <a href="javascript:void(0)" class="category" a_categoryId="${c3.id }" >${c3.name }</a> 
-	           		       				   </c:forEach> 
+				               		      <c:forEach items="${c2.childsSet}" var="c3">
+				               		      		    <a href="javascript:void(0)" class="category" a_categoryId="${c3.id }" >${c3.name }</a>
+	           		       				   </c:forEach>
            		       				   </div>
 			               		 </div>
-           		          </c:forEach>  
+           		          </c:forEach>
                		 </div> 
            		 </c:forEach>  
 	    </div> 

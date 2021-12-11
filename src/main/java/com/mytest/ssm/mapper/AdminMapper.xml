@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mytest.ssm.mapper.AdminMapper">
+
+  
+   <select id="selectUserInfoByNameAndPass" parameterType="com.mytest.ssm.entity.Admin" resultMap="BaseResultMap">
+    select * from T_admin where A_ADMINNAME =#{adminName} and A_PASSWORD =#{password}
+    </select>
+    <update id="updateUserPWDById" parameterType="com.mytest.ssm.entity.Admin">
+    UPDATE t_admin SET A_PASSWORD = #{password} where A_ID = #{id}
+    </update>
+    
+ <!-- 自定义高级映射 -->
+    <resultMap id="BaseResultMap" type="com.mytest.ssm.entity.Admin">
+        <id column="A_ID" property="id" />
+        <result column="A_ADMINNAME" property="adminName" />
+        <result column="A_PASSWORD" property="password" />
+        <result column="A_GENDER" property="sex" />
+        <result column="A_DESC" property="descs" />
+        <result column="A_REALNAME" property="realName" />
+        
+    </resultMap>
+  
+</mapper>

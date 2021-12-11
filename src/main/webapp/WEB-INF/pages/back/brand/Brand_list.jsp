@@ -69,7 +69,7 @@
 									</td>
 									<td>
 										<a class="like_btn" 
-													href="/shopssm/back/brand/brandToEdit.do?id=${brand.id }">修改</a>
+													href="/shopssm/back/brandToEdit.action?id=${brand.id }">修改</a>
 									</td>
 							    </tr>
 					    </c:forEach>
@@ -84,9 +84,9 @@
 					<a href="javascript:void(0)" class="like_btn" onclick="cancelCheck('id')">取消选择</a>
 					<a href="javascript:void(0)" class="like_btn" onclick="reverseCheck('id')">反选</a>
 					<a href="javascript:void(0)" class="like_btn" 
-								onclick="deleteChecked('id','/shopssm/back/brand/brandDel.do')">删除</a>
+								onclick="deleteChecked('id','/shopssm/back/brandDel.action')">删除</a>
 					<a target="_blank" class="like_btn" 
-								href="/shopssm/back/brand/brandToAdd.do">添加品牌</a>
+								href="/shopssm/back/brandToAdd.action">添加品牌</a>
 				</td>
 			</tr>
   
@@ -122,7 +122,7 @@
 			</table>
 		</div>
  
-		<form id="SearchForm" method="post" action="/shopssm/back/brand/brandList.do" >
+		<form id="SearchForm" method="post" action="/shopssm/back/brandList.action" >
 			<table id="search" align="center" > 
 				<tr>
 					<td>中文名称：</td>

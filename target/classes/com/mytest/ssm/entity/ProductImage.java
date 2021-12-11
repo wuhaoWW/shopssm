@@ -1,64 +1,44 @@
 package com.mytest.ssm.entity;
-/**
- * 简化版！！
- * @author 谭纬城
- *
- */
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import lombok.Data;
+
+@Data
+@TableName(value = "t_product_image")
 public class ProductImage {
 	/**
 	 * 图片id
 	 * int的默认值为0,Integer的默认值为null
 	 */
+	@TableId(value = "PI_ID",type = IdType.AUTO)
 	private Integer id;
 	/**
 	 * 图片名称
 	 */
+	@TableField(value = "PI_NAME")
 	private String name;
 	/**
 	 * 图片集合
 	 */
+	@TableField(value = "PI_URL")
 	private String url;
 	/**
 	 * 图片排序
 	 */
-	private int index;
+	@TableField(value = "PI_INDEX")
+	private int indexs;
 	/**
 	 * 图片所属产品Id,重要
 	 */
+	@TableField(value = "PI_PRODUCT_ID")
 	private int	productId;
 	
-	public ProductImage() {
-	}
+	
 
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public int getIndex() {
-		return index;
-	}
-	public void setIndex(int index) {
-		this.index = index;
-	}
+	
 	
 }
